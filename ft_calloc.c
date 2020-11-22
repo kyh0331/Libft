@@ -1,35 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlcpy.c                                       :+:      :+:    :+:   */
+/*   ft_calloc.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ykwon <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/21 04:06:13 by ykwon             #+#    #+#             */
-/*   Updated: 2020/11/22 21:56:20 by ykwon            ###   ########.fr       */
+/*   Created: 2020/11/22 19:21:42 by ykwon             #+#    #+#             */
+/*   Updated: 2020/11/22 19:48:11 by ykwon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize)
+void	*ft_calloc(size_t count, size_t size)
 {
-	size_t i;
+	unsigned char	*new_mem;
+	size_t			i;
 
+	new_mem = (unsigned char*)malloc(size * count);
+	if (new_mem == NULL)
+		return (NULL);
 	i = 0;
-	if (dst == NULL)
-		return (0);
-	if (dstsize != 0)
+	while (i < size * count)
 	{
-		while (i < dstsize - 1 && src[i] != '\0')
-		{
-			dst[i] = src[i];
-			i++;
-		}
-		dst[i] = '\0';
-	}
-	i = 0;
-	while (src[i] != '\0')
+		new_mem[i] = 0;
 		i++;
-	return (i);
+	}
+	return (new_mem);
 }
