@@ -6,7 +6,7 @@
 /*   By: ykwon <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/20 17:38:48 by ykwon             #+#    #+#             */
-/*   Updated: 2020/11/20 18:10:34 by ykwon            ###   ########.fr       */
+/*   Updated: 2020/12/08 01:32:34 by ykwon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ void	*ft_memcpy(void *dst, const void *src, size_t n)
 
 	new_dst = (unsigned char*)dst;
 	new_src = (unsigned char*)src;
+	if (dst == NULL && src == NULL)
+		return (NULL);
 	i = 0;
 	while (i < n)
 	{

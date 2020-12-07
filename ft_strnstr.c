@@ -6,7 +6,7 @@
 /*   By: ykwon <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/21 18:31:23 by ykwon             #+#    #+#             */
-/*   Updated: 2020/11/21 19:18:50 by ykwon            ###   ########.fr       */
+/*   Updated: 2020/12/08 02:41:49 by ykwon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ char	*ft_strnstr(const char *haystack, const char *needle, size_t len)
 	size_t j;
 
 	i = 0;
+	if (*needle == '\0')
+		return ((char*)haystack);
 	while (haystack[i] != '\0' && i < len)
 	{
 		j = 0;

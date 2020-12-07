@@ -6,35 +6,50 @@
 /*   By: ykwon <ykwon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/30 17:26:02 by ykwon             #+#    #+#             */
-/*   Updated: 2020/11/30 17:56:05 by ykwon            ###   ########.fr       */
+/*   Updated: 2020/12/08 01:11:25 by ykwon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_itoa(int n)
+long int	ft_abs(long int nbr)
 {
-	char *str;
+	return ((nbr < 0) ? -nbr : nbr);
+}
 
-	if (!(str = (char *)malloc(sizeof(char) * 2)))
-		return (NULL);
-	if (n == -2147483648)
+int			ft_len(long int nbr)
+{
+	int	len;
+
+	len = (nbr <= 0) ? 1 : 0;
+	while (nbr != 0)
 	{
-		ft_strlcpy(str, "-2147483648", 12);
-		return (str);
+		nbr = nbr / 10;
+		len++;
 	}
-	if (n < 0)
+	return (len);
+}
+
+char		*ft_itoa(int n)
+{
+	int		len;
+	int		sign;
+	char	*c;
+
+	sign = (n < 0) ? -1 : 1;
+	len = ft_len(n);
+	c = (char *)malloc(sizeof(char) * len + 1);
+	if (c == NULL)
+		return (0);
+	c[len] = '\0';
+	len--;
+	while (len >= 0)
 	{
-		str[0] = '-';
-		str[1] = '\0';
-		str = ft_strjoin(str, ft_itoa(-n));
+		c[len] = '0' + ft_abs(n % 10);
+		n = ft_abs(n / 10);
+		len--;
 	}
-	else if (n >= 10)
-		str = ft_strjoin(ft_itoa(n / 10), ft_itoa(n % 10));
-	else if (n < 10 && n >= 0)
-	{
-		str[0] = n + '0';
-		str[1] = '\0';
-	}
-	return (str);
+	if (sign == -1)
+		c[0] = '-';
+	return (c);
 }
