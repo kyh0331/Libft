@@ -6,7 +6,7 @@
 /*   By: ykwon <ykwon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/30 18:26:15 by ykwon             #+#    #+#             */
-/*   Updated: 2020/11/30 18:38:55 by ykwon            ###   ########.fr       */
+/*   Updated: 2020/12/12 00:31:38 by ykwon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
 	unsigned int	i;
 	char			*str;
 
+	if (s == NULL)
+		return (NULL);
 	i = 0;
 	str = (char*)malloc(sizeof(char) * (ft_strlen(s)) + 1);
 	if (str == NULL)

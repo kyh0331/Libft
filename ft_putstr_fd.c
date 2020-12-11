@@ -6,7 +6,7 @@
 /*   By: ykwon <ykwon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/30 18:56:06 by ykwon             #+#    #+#             */
-/*   Updated: 2020/11/30 19:00:12 by ykwon            ###   ########.fr       */
+/*   Updated: 2020/12/12 00:36:38 by ykwon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,5 +14,7 @@
 
 void	ft_putstr_fd(char *s, int fd)
 {
+	if (!(s) || fd < 0)
+		return ;
 	write(fd, s, ft_strlen(s));
 }

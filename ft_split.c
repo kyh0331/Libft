@@ -6,7 +6,7 @@
 /*   By: ykwon <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/22 22:05:01 by ykwon             #+#    #+#             */
-/*   Updated: 2020/11/22 22:30:58 by ykwon            ###   ########.fr       */
+/*   Updated: 2020/12/12 02:41:41 by ykwon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,8 @@ char	*str_n_cpy(char *str, int n)
 	char	*result;
 
 	result = (char *)malloc(sizeof(char) * (n + 1));
+	if (result == NULL)
+		return (NULL);
 	result[n] = '\0';
 	i = 0;
 	while (i < n)
@@ -50,50 +52,56 @@ char	*str_n_cpy(char *str, int n)
 	return (result);
 }
 
-void	fill(char *str, char c, char **result)
+char	**ft_malloc_error(char **tab)
+{
+	unsigned int	i;
+
+	i = 0;
+	while (tab[i])
+	{
+		free(tab[i]);
+		i++;
+	}
+	free(tab);
+	return (NULL);
+}
+
+char	**fill(char *str, char c, char **result)
 {
 	int i;
 	int j;
 	int count;
 
-	i = 0;
-	j = 1;
+	i = -1;
+	j = 0;
 	count = 0;
-	if (str[i] && str[i] != c)
-		j = i++;
-	while (str[i])
-	{
+	while (str[++i])
 		if (str[i] == c)
 		{
 			if (j < i)
-				result[count++] = str_n_cpy(str + j, i - j);
+			{
+				result[count] = str_n_cpy(str + j, i - j);
+				if (result[count++] == NULL)
+					return (ft_malloc_error(result));
+			}
 			j = i + 1;
 		}
-		i++;
-	}
 	if (j < i)
 		result[count] = str_n_cpy(str + j, i - j);
+	return (result);
 }
 
 char	**ft_split(char const *s, char c)
 {
 	char	**result;
-	int		length;
 	int		count;
 
-	if (c == '\0')
-	{
-		result = (char **)malloc(sizeof(char *) * 2);
-		length = 0;
-		while (s[length] != '\0')
-			length++;
-		result[0] = str_n_cpy((char*)s, length);
-		result[1] = 0;
-		return (result);
-	}
+	if (!s)
+		return (NULL);
 	count = count_words((char*)s, c);
 	result = (char **)malloc(sizeof(char *) * (count + 1));
+	if (result == NULL)
+		return (NULL);
 	result[count] = 0;
-	fill((char*)s, c, result);
-	return (result);
+	return (fill((char*)s, c, result));
 }
